@@ -1,4 +1,8 @@
-name: Deploy to GitHub Pages
+name: Publish to GitHub Pages
+
+# Mirrors main to the gh-pages branch. GitHub Pages serves the site from
+# gh-pages ("deploy from a branch"), which self-enables without admin
+# permissions — the GITHUB_TOKEN only needs contents:write.
 
 on:
   push:
@@ -6,27 +10,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - run: git push --force origin HEAD:gh-pages
