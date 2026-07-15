@@ -265,6 +265,69 @@ footer{margin-top:clamp(90px,11vw,160px);border-top:1px solid var(--ink);positio
   *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
   .rv{opacity:1;transform:none}
 }
+
+/* ══ UNIVERSAL SEARCH ══ */
+.nav-search{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;padding:9px 12px;border:1px solid var(--i30);
+  transition:all .2s;color:var(--i70);cursor:pointer}
+.nav-search:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.nav-search .ns-k{border:1px solid currentColor;padding:1px 5px;font-size:8px;letter-spacing:.05em;opacity:.7}
+@media(max-width:640px){.nav-search span:not(.ns-ico){display:none}.nav-search{padding:8px 10px}}
+
+.hero-search{display:flex;align-items:center;gap:15px;width:min(560px,90vw);margin:36px auto 4px;
+  border:1px solid var(--ink);background:var(--paper);padding:17px 21px;text-align:left;
+  position:relative;overflow:hidden;cursor:text;transition:box-shadow .3s,transform .3s}
+.hero-search:hover{box-shadow:9px 9px 0 0 var(--i08);transform:translateY(-1px)}
+.hero-search .hs-ico{font-size:17px;line-height:1}
+.hero-search .hs-ph{flex:1;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--i50);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-search .hs-caret{width:2px;height:15px;background:var(--ink);animation:blink 1.1s steps(2) infinite;flex:none}
+.hero-search .hs-k{font-family:var(--mono);font-size:9px;letter-spacing:.06em;border:1px solid var(--i30);
+  padding:3px 7px;color:var(--i70);flex:none}
+
+.pal{position:fixed;inset:0;z-index:150;display:none;align-items:flex-start;justify-content:center}
+.pal.on{display:flex}
+.pal-backdrop{position:absolute;inset:0;background:rgba(17,17,17,.52);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pal-box{position:relative;z-index:2;width:min(700px,94vw);margin-top:11vh;background:var(--paper);
+  border:1px solid var(--ink);box-shadow:18px 18px 0 0 rgba(17,17,17,.13);display:flex;flex-direction:column;
+  max-height:78vh;animation:palIn .26s cubic-bezier(.2,.85,.2,1)}
+@keyframes palIn{from{opacity:0;transform:translateY(-16px) scale(.985)}to{opacity:1;transform:none}}
+.pal-top{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--ink)}
+.pal-ico{font-size:20px;line-height:1}
+.pal-input{flex:1;border:0;background:none;outline:0;font-family:var(--disp);font-weight:500;
+  font-size:19px;color:var(--ink);letter-spacing:-.01em;cursor:text}
+.pal-input::placeholder{color:var(--i30)}
+.pal-esc{font-family:var(--mono);font-size:9px;letter-spacing:.14em;border:1px solid var(--i30);
+  padding:5px 8px;color:var(--i50);transition:all .2s;cursor:pointer;flex:none}
+.pal-esc:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.pal-results{overflow-y:auto;flex:1}
+.pal-results::-webkit-scrollbar{width:8px}
+.pal-results::-webkit-scrollbar-thumb{background:var(--i15)}
+.pal-item{display:grid;grid-template-columns:32px 1fr auto;gap:14px;align-items:center;width:100%;
+  text-align:left;padding:13px 20px;border-bottom:1px solid var(--i08);transition:background .1s,color .1s;cursor:pointer}
+.pal-item.active{background:var(--ink);color:var(--paper)}
+.pal-item.active .pi-desc,.pal-item.active .pi-type,.pal-item.active .pi-no{color:rgba(254,254,254,.6)}
+.pal-item.active .pi-key{color:var(--paper);border-color:rgba(254,254,254,.45)}
+.pi-no{font-family:var(--mono);font-size:10px;color:var(--i30)}
+.pi-main{min-width:0}
+.pi-title{font-family:var(--disp);font-weight:500;font-size:15px;display:block;letter-spacing:-.005em}
+.pi-title mark{background:var(--ink);color:var(--paper);padding:0 2px}
+.pal-item.active .pi-title mark{background:var(--paper);color:var(--ink)}
+.pi-desc{font-size:11.5px;color:var(--i50);display:block;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi-meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px;text-align:right}
+.pi-type{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--i50);white-space:nowrap}
+.pi-key{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;border:1px solid var(--i30);
+  padding:2px 6px;color:var(--i70);white-space:nowrap}
+.pal-empty{padding:44px 24px;text-align:center;font-family:var(--mono);font-size:11px;
+  letter-spacing:.08em;color:var(--i50);text-transform:uppercase;line-height:1.7}
+.pal-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;
+  border-top:1px solid var(--ink);font-family:var(--mono);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--i50)}
+.pal-hints b{color:var(--ink);border:1px solid var(--i15);padding:1px 5px;margin:0 2px;font-weight:500}
+body.pal-open{overflow:hidden}
+@media(max-width:640px){.pal-box{margin-top:7vh;max-height:84vh}.pal-hints{display:none}.pi-type{display:none}}
 </style>
 </head>
 <body>
@@ -287,10 +350,28 @@ footer{margin-top:clamp(90px,11vw,160px);border-top:1px solid var(--ink);positio
       <a href="#solutions" data-hover data-scramble>Systems</a>
       <a href="#vault" data-hover data-scramble>Vault</a>
       <a href="#directory" data-hover data-scramble>Directory</a>
+      <button type="button" class="nav-search" id="navSearch" data-hover aria-label="Open universal search"><span class="ns-ico">⌕</span><span>Search</span><span class="ns-k">⌘K</span></button>
       <span class="clock" id="clock">--:--:-- GST</span>
     </div>
   </div>
 </nav>
+
+<!-- ══ UNIVERSAL SEARCH PALETTE ══ -->
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-backdrop" data-close></div>
+  <div class="pal-box" role="dialog" aria-modal="true" aria-label="Universal search">
+    <div class="pal-top">
+      <span class="pal-ico">⌕</span>
+      <input id="palInput" class="pal-input" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="What are you looking for?">
+      <button type="button" class="pal-esc" data-close data-hover>ESC</button>
+    </div>
+    <div class="pal-results" id="palResults"></div>
+    <div class="pal-foot">
+      <span id="palCount">—</span>
+      <span class="pal-hints"><b>↑↓</b> navigate&nbsp;&nbsp;<b>↵</b> open&nbsp;&nbsp;<b>esc</b> close</span>
+    </div>
+  </div>
+</div>
 
 <header id="top">
   <canvas id="stage"></canvas>
@@ -302,6 +383,12 @@ footer{margin-top:clamp(90px,11vw,160px);border-top:1px solid var(--ink);positio
     <div><span class="hero-tag"><span class="blink"></span>PRIVATE INTELLIGENCE SUITE — EST. 2026</span></div>
     <div class="hero-ai" id="heroAI">AI LABS</div>
     <p class="hero-sub">Every intelligence initiative at Sykon Properties — engineered, curated and delivered from one address.</p>
+    <button type="button" class="hero-search" id="heroSearch" data-hover aria-label="Search Sykon AI Labs">
+      <span class="hs-ico">⌕</span>
+      <span class="hs-ph" id="heroPh">What are you looking for?</span>
+      <span class="hs-caret"></span>
+      <span class="hs-k">⌘K</span>
+    </button>
     <div class="hero-cta">
       <a class="btn solid" href="#solutions" data-hover data-magnet><span>Enter the Systems</span></a>
       <a class="btn" href="#vault" data-hover data-magnet><span>Open the Vault</span></a>
@@ -473,7 +560,7 @@ document.getElementById('directory-groups').innerHTML = DIRECTORY.map(g => `
     </div>
   </div>`).join('');
 
-const TICKER = ["Sykon AI Labs","Private Intelligence","Dubai · U.A.E.","Systems in residence","Vault sync — Mon 11:00 GST","Monochrome 11 / FE","Est. 2026"];
+const TICKER = ["Sykon AI Labs","Private Intelligence","Universal search — ⌘K","Dubai · U.A.E.","Systems in residence","Vault sync — Mon 11:00 GST","Monochrome 11 / FE","Est. 2026"];
 document.getElementById('tickerIn').innerHTML = (TICKER.concat(TICKER,TICKER,TICKER)).map(t=>`<span>${t}</span>`).join('');
 
 /* ───────── vault data (updated by the Monday sync) ───────── */
@@ -483,6 +570,7 @@ async function loadJSON(p){ try{ const r=await fetch(p,{cache:'no-store'}); if(!
   const [cfg, pres] = await Promise.all([loadJSON('data/config.json'), loadJSON('data/presentations.json')]);
   const area = document.getElementById('deck-area');
   const items = (pres && Array.isArray(pres.items)) ? pres.items : [];
+  try { if (window.SykonSearch) window.SykonSearch.setVault(items); } catch(e){}
   if (items.length) {
     items.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
     area.innerHTML = `<div class="deck-list rv in">` + items.map(p => `
@@ -580,6 +668,128 @@ document.querySelectorAll('.stats').forEach(el=>io2.observe(el));
 /* reveal on scroll */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ───────── universal search — ⌘K command palette ───────── */
+(function universalSearch(){
+  /* synonym layer — natural keywords resolve to the right entry */
+  const ALIASES = {
+    'Reels Bot':'video reels instagram tiktok content social media short form marketing automation clips post',
+    'Presentation Studio':'deck slides powerpoint keynote pitch investor presentation studio generate',
+    'Property Intelligence':'market intelligence data dld analytics research query ask rental service charge insight benchmark',
+    'Lead Concierge':'chatbot chat lead client whatsapp enquiry inquiry qualify viewing multilingual concierge 24 7 assistant',
+    'Market Pulse':'briefing news weekly report transactions launches prices pulse market digest trend',
+    'Document Vault AI':'contract mou noc document ocr search redact classify paperwork agreement',
+    'Property Status Enquiry':'title deed ownership property status oqood check enquiry',
+    'Track Project Status':'off plan project escrow construction status developer progress track',
+    'Verify Licenses & Permits':'rera permit advertisement trakheesi verify licence broker validate ad',
+    'Makani':'location address building number map geo navigation makani find',
+    'goAML Registration':'money laundering aml anti fiu compliance report goaml register uaefiu',
+    'DLD Support':'contact help support complaint land department call dld',
+    'Licensed Real Estate Brokers':'broker agent licence lookup rera find broker list',
+    'Licensed Brokerage Companies':'brokerage office company firm licence agency list',
+    'Approved Real Estate Developers':'developer registry approved builder list dld',
+    'Rental Index':'rent rental fair calculator index tenancy increase rera',
+    'Service Charge Index':'service charge maintenance fee community master developer',
+    'Management Companies':'owners association oa management community building manage',
+    'Police Clearance Certificate':'pcc good conduct police certificate clearance criminal record',
+    'Golden Visa Application':'golden visa residency 10 year long term investor property visa dldcube',
+    'ILOE — Subscribe / Renew':'insurance job loss unemployment iloe subscribe renew involuntary policy',
+    'ILOE — Check & Pay Fines':'iloe fine pay mohre penalty unemployment insurance',
+    'ILOE — Submit a Claim':'iloe claim unemployment benefit compensation submit',
+    'GDRFA — Overstay Fines Inquiry':'overstay fine residency visa gdrfa penalty inquiry',
+    'ICP — File Validity':'file validity entry permit residency status icp check',
+    'ICP — Pay Overstay Fine':'overstay fine pay icp penalty settle',
+    'ICP — Update Emirates ID Details':'emirates id eid update mobile number personal details icp change',
+    'ICP — Visa Extension':'visa extension on arrival tourist extend icp',
+    'ICP — Emirates ID Card Status':'emirates id eid status card track production icp',
+    'DHA — Medical Fitness Status':'medical fitness test health visa dha screening result',
+    'MOFA — Attestation':'attestation attest document mofa certificate embassy legalise legalize',
+    'Dubai Police — Services':'travel ban police report services dubai police fines check'
+  };
+  let INDEX=null, vaultItems=[], matches=[], active=0, open=false;
+  const escHtml=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const escRx=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  function build(){
+    const idx=[];
+    idx.push({type:'Section',title:'Systems in Residence',desc:'The AI portfolio — six proprietary systems.',href:'#solutions',external:false,kw:'portfolio systems solutions ai overview index'});
+    idx.push({type:'Section',title:'The Vault',desc:'Presentations & decks, refreshed weekly.',href:'#vault',external:false,kw:'presentations decks slides papers vault library'});
+    idx.push({type:'Section',title:'The Directory',desc:'Essential references & official links.',href:'#directory',external:false,kw:'links references directory government portals services'});
+    (typeof SOLUTIONS!=='undefined'?SOLUTIONS:[]).forEach(s=>idx.push({type:'System · '+s.tag,title:s.title,desc:s.desc,href:s.link||'#solutions',external:false,kw:(ALIASES[s.title]||'')+' '+s.tag+' '+s.status}));
+    (typeof DIRECTORY!=='undefined'?DIRECTORY:[]).forEach(g=>g.links.forEach(l=>idx.push({type:g.group,title:l.t,desc:l.d,href:l.u,external:true,kw:(ALIASES[l.t]||'')+' '+g.group})));
+    vaultItems.forEach(p=>idx.push({type:'Vault · Deck',title:p.title,desc:p.description||'',href:p.link||'#vault',external:!!p.link,kw:'presentation deck slides '+(p.date||'')}));
+    idx.forEach(it=>it._hay=(it.title+' '+it.desc+' '+it.type+' '+(it.kw||'')).toLowerCase());
+    INDEX=idx;
+  }
+  function run(q){
+    if(!INDEX) build();
+    const ql=q.trim().toLowerCase();
+    if(!ql) return {items:INDEX.filter(i=>i.type==='Section'||i.type.indexOf('System')===0).slice(0,9),sugg:true};
+    const toks=ql.split(/\s+/).filter(Boolean);
+    const out=[];
+    for(const it of INDEX){
+      let ok=true; for(const tk of toks){ if(it._hay.indexOf(tk)===-1){ok=false;break;} }
+      if(!ok) continue;
+      let s=0; const tl=it.title.toLowerCase();
+      if(tl===ql)s+=1000; else if(tl.indexOf(ql)===0)s+=250; else if(tl.indexOf(ql)!==-1)s+=120;
+      for(const tk of toks){ if(tl.indexOf(tk)===0)s+=25; else if(tl.indexOf(tk)!==-1)s+=15; if((it.kw||'').toLowerCase().indexOf(tk)!==-1)s+=3; s+=2; }
+      if(it.type==='Section')s+=8; else if(it.type.indexOf('System')===0)s+=5;
+      out.push({it,s});
+    }
+    out.sort((a,b)=>b.s-a.s);
+    return {items:out.slice(0,24).map(o=>o.it),sugg:false};
+  }
+  const pal=document.getElementById('pal'), input=document.getElementById('palInput'),
+        results=document.getElementById('palResults'), count=document.getElementById('palCount');
+  function hi(title,toks){ let out=escHtml(title); const v=toks.filter(Boolean).map(escRx);
+    if(v.length){ try{ out=out.replace(new RegExp('('+v.join('|')+')','ig'),'<mark>$1</mark>'); }catch(e){} } return out; }
+  function render(q){
+    const res=run(q); matches=res.items; active=0;
+    const toks=q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if(!matches.length){
+      results.innerHTML='<div class="pal-empty">No signal for “'+escHtml(q)+'”<br>Try a service, a system, or a keyword.</div>';
+      count.textContent='0 results'; return;
+    }
+    results.innerHTML=matches.map((it,i)=>'<button type="button" class="pal-item'+(i===0?' active':'')+'" data-idx="'+i+'" data-hover>'
+      +'<span class="pi-no">'+String(i+1).padStart(2,'0')+'</span>'
+      +'<span class="pi-main"><span class="pi-title">'+hi(it.title,toks)+'</span><span class="pi-desc">'+escHtml(it.desc)+'</span></span>'
+      +'<span class="pi-meta"><span class="pi-type">'+escHtml(it.type)+'</span><span class="pi-key">'+(it.external?'OPEN ↗':'GO ↵')+'</span></span>'
+      +'</button>').join('');
+    count.textContent=res.sugg?'Suggestions':(matches.length+' result'+(matches.length>1?'s':''));
+  }
+  function setActive(i){ if(!matches.length)return; active=(i+matches.length)%matches.length;
+    const kids=results.children; for(let k=0;k<kids.length;k++)kids[k].classList.toggle('active',k===active);
+    if(kids[active])kids[active].scrollIntoView({block:'nearest'}); }
+  function go(i){ const it=matches[i]; if(!it)return; close();
+    if(it.external){ window.open(it.href,'_blank','noopener'); }
+    else { const t=document.querySelector(it.href); if(t){ history.replaceState(null,'',it.href); t.scrollIntoView({behavior:'smooth'}); } } }
+  function openPal(seed){ open=true; pal.classList.add('on'); document.body.classList.add('pal-open'); pal.setAttribute('aria-hidden','false');
+    input.value=seed||''; render(input.value);
+    setTimeout(()=>{ input.focus(); if(seed){ try{input.selectionStart=input.selectionEnd=seed.length;}catch(e){} } },20); }
+  function close(){ open=false; pal.classList.remove('on'); document.body.classList.remove('pal-open'); pal.setAttribute('aria-hidden','true'); }
+  input.addEventListener('input',()=>render(input.value));
+  input.addEventListener('keydown',e=>{
+    if(e.key==='ArrowDown'){e.preventDefault();setActive(active+1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();setActive(active-1);}
+    else if(e.key==='Enter'){e.preventDefault();go(active);}
+    else if(e.key==='Escape'){e.preventDefault();close();}
+  });
+  results.addEventListener('mousemove',e=>{ const b=e.target.closest('.pal-item'); if(b){ const i=+b.dataset.idx; if(i!==active)setActive(i); } });
+  results.addEventListener('click',e=>{ const b=e.target.closest('.pal-item'); if(b)go(+b.dataset.idx); });
+  pal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
+  const heroBtn=document.getElementById('heroSearch'), navBtn=document.getElementById('navSearch');
+  if(heroBtn){ heroBtn.addEventListener('click',()=>openPal(''));
+    heroBtn.addEventListener('keydown',e=>{ if(e.key.length===1&&e.key!==' '&&!e.metaKey&&!e.ctrlKey&&!e.altKey){ e.preventDefault(); openPal(e.key); } }); }
+  if(navBtn) navBtn.addEventListener('click',()=>openPal(''));
+  document.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){ e.preventDefault(); open?close():openPal(''); return; }
+    if(e.key==='/'&&!open){ const a=document.activeElement,t=a&&a.tagName; if(t!=='INPUT'&&t!=='TEXTAREA'&&!(a&&a.isContentEditable)){ e.preventDefault(); openPal(''); } }
+  });
+  /* rotating "what do you wish for?" prompt */
+  const PHRASES=["What are you looking for?","What do you wish for?","Find a system, a deck, a service…","Try “rental index” or “golden visa”…","Search 27 references + 6 systems…"];
+  let pi=0; const heroPh=document.getElementById('heroPh');
+  if(!reduced) setInterval(()=>{ pi=(pi+1)%PHRASES.length; if(heroPh)heroPh.textContent=PHRASES[pi]; if(!input.value)input.placeholder=PHRASES[pi]; },3400);
+  window.SykonSearch={ setVault(v){ vaultItems=Array.isArray(v)?v:[]; INDEX=null; if(open)render(input.value); }, open:openPal };
+})();
 
 /* ───────── 3D hero stage: wireframe icosahedron + particle lattice ───────── */
 (function stage(){
