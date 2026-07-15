@@ -13,7 +13,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;900&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════════════════
    SYKON AI LABS — MONOCHROME SYSTEM
@@ -22,12 +22,12 @@
 :root{
   --ink:#111111;
   --paper:#fefefe;
-  --i92:rgba(17,17,17,.92); --i70:rgba(17,17,17,.70); --i50:rgba(17,17,17,.50);
-  --i30:rgba(17,17,17,.30); --i15:rgba(17,17,17,.15); --i08:rgba(17,17,17,.08);
-  --i04:rgba(17,17,17,.04);
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --disp:'Space Grotesk',system-ui,sans-serif;
-  --brand:'Montserrat',system-ui,sans-serif;
+  --i92:rgba(17,17,17,.92); --i70:rgba(17,17,17,.80); --i50:rgba(17,17,17,.60);
+  --i30:rgba(17,17,17,.42); --i15:rgba(17,17,17,.22); --i08:rgba(17,17,17,.12);
+  --i04:rgba(17,17,17,.05);
+  --sf:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --mono:var(--sf); --disp:var(--sf); --brand:var(--sf); --sans:var(--sf);
+  --r-lg:20px; --r:13px; --r-sm:9px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -335,6 +335,73 @@ footer{margin-top:clamp(90px,11vw,160px);border-top:1px solid var(--ink);positio
 .pal-hints b{color:var(--ink);border:1px solid var(--i15);padding:1px 5px;margin:0 2px;font-weight:500}
 body.pal-open{overflow:hidden}
 @media(max-width:640px){.pal-box{margin-top:7vh;max-height:84vh}.pal-hints{display:none}.pi-type{display:none}}
+
+/* ═══════════ REFRESH — SF Pro · rounded · comfort · contrast ═══════════ */
+body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006em}
+
+/* rounded system */
+.frame{border-radius:26px}
+.cur-dot,.cur-ring{border-radius:50%}
+.nav-links a,.nav-search,.hero-tag,.btn,.pal-esc,.hs-k,.ns-k,.pi-key,.chip{border-radius:var(--r)}
+.hero-search,.pal-box,.card,.stat,.vault-meta,.empty{border-radius:var(--r-lg)}
+.pal-item,.deck,.link-row{border-radius:var(--r)}
+.pal-box,.stat{overflow:hidden}
+
+/* headings — bigger, screen-covering */
+.sys{font-size:11.5px;letter-spacing:.26em}
+.h-giant{font-weight:800;font-size:clamp(54px,10.5vw,156px);line-height:.94;margin:28px 0 16px;letter-spacing:-.035em}
+.h-giant .ol{-webkit-text-stroke:2px var(--ink)}
+.hero-ai{font-weight:800;font-size:clamp(64px,13vw,196px);-webkit-text-stroke:2px var(--ink);margin-top:30px}
+.foot-giant{font-weight:800;font-size:clamp(68px,15vw,232px);-webkit-text-stroke:1.5px var(--i30)}
+
+/* comfort — spacing + legibility */
+.sec{padding:clamp(96px,11vw,188px) 0 0}
+.lede{font-size:18px;line-height:1.6;max-width:660px}
+.hero-sub{font-size:16.5px;line-height:1.6;max-width:560px;margin-top:30px}
+.mono-note{font-size:11px}
+.clock{font-size:11px;font-variant-numeric:tabular-nums}
+.nav-in{height:66px}
+.nav-links a{font-size:10.5px}
+.ticker span{font-size:10.5px}
+
+/* solutions — separate rounded cards */
+.grid{border:0;gap:16px;grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.card{margin:0;border:1px solid var(--i15);padding:40px 34px 32px;min-height:320px}
+.card .no{font-size:50px}
+.card .tag{font-size:10px}
+.card h3{font-size:29px;margin:18px 0 4px}
+.card p{font-size:14.5px;line-height:1.6}
+.chip{font-size:9.5px;padding:7px 13px}
+.card .go{font-size:11px}
+
+/* stats — rounded tiles */
+.stats{border:0;gap:14px;margin-top:6px}
+.stat{border:1px solid var(--i15);padding:30px}
+.stat:last-child{border-right:1px solid var(--i15)}
+.stat b{font-size:clamp(30px,3.2vw,46px)}
+@media(max-width:820px){.stat:nth-child(2){border-right:1px solid var(--i15)}}
+@media(max-width:520px){.stats{grid-template-columns:1fr}}
+
+/* vault + directory */
+.deck{padding:24px 22px;border-bottom:0}
+.deck .t{font-size:24px}
+.deck .d{font-size:13.5px}
+.vault-meta{font-size:11px;padding:16px 20px}
+.empty{padding:70px 34px}
+.dir-group>.gh h3{font-size:27px}
+.dir-grid{gap:4px 46px}
+.link-row{padding:18px;border-bottom:0;margin-bottom:2px}
+.link-row .lt{font-size:15px}
+.link-row .ld{font-size:13px}
+.link-row .no{font-size:11px}
+
+/* footer + palette legibility */
+.foot-grid{gap:36px}
+.foot-grid a{font-size:14.5px}
+.foot-note{font-size:13px}
+.pal-input{font-size:20px}
+.pi-title{font-size:15.5px}
+.pi-desc{font-size:12px}
 </style>
 </head>
 <body>
@@ -679,38 +746,38 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 (function universalSearch(){
   /* synonym layer — natural keywords resolve to the right entry */
   const ALIASES = {
-    'Reels Bot':'video reels instagram tiktok content social media short form marketing automation clips post',
-    'Presentation Studio':'deck slides powerpoint keynote pitch investor presentation studio generate',
-    'Property Intelligence':'market intelligence data dld analytics research query ask rental service charge insight benchmark',
-    'Lead Concierge':'chatbot chat lead client whatsapp enquiry inquiry qualify viewing multilingual concierge 24 7 assistant',
-    'Market Pulse':'briefing news weekly report transactions launches prices pulse market digest trend',
-    'Document Vault AI':'contract mou noc document ocr search redact classify paperwork agreement',
-    'Property Status Enquiry':'title deed ownership property status oqood check enquiry',
-    'Track Project Status':'off plan project escrow construction status developer progress track',
-    'Verify Licenses & Permits':'rera permit advertisement trakheesi verify licence broker validate ad',
-    'Makani':'location address building number map geo navigation makani find',
-    'goAML Registration':'money laundering aml anti fiu compliance report goaml register uaefiu',
-    'DLD Support':'contact help support complaint land department call dld',
-    'Licensed Real Estate Brokers':'broker agent licence lookup rera find broker list',
-    'Licensed Brokerage Companies':'brokerage office company firm licence agency list',
-    'Approved Real Estate Developers':'developer registry approved builder list dld',
-    'Rental Index':'rent rental fair calculator index tenancy increase rera',
-    'Service Charge Index':'service charge maintenance fee community master developer',
-    'Management Companies':'owners association oa management community building manage',
-    'Police Clearance Certificate':'pcc good conduct police certificate clearance criminal record',
-    'Golden Visa Application':'golden visa residency 10 year long term investor property visa dldcube',
-    'ILOE — Subscribe / Renew':'insurance job loss unemployment iloe subscribe renew involuntary policy',
-    'ILOE — Check & Pay Fines':'iloe fine pay mohre penalty unemployment insurance',
-    'ILOE — Submit a Claim':'iloe claim unemployment benefit compensation submit',
-    'GDRFA — Overstay Fines Inquiry':'overstay fine residency visa gdrfa penalty inquiry',
-    'ICP — File Validity':'file validity entry permit residency status icp check',
-    'ICP — Pay Overstay Fine':'overstay fine pay icp penalty settle',
-    'ICP — Update Emirates ID Details':'emirates id eid update mobile number personal details icp change',
-    'ICP — Visa Extension':'visa extension on arrival tourist extend icp',
-    'ICP — Emirates ID Card Status':'emirates id eid status card track production icp',
-    'DHA — Medical Fitness Status':'medical fitness test health visa dha screening result',
-    'MOFA — Attestation':'attestation attest document mofa certificate embassy legalise legalize',
-    'Dubai Police — Services':'travel ban police report services dubai police fines check'
+    'Reels Bot':'video reels instagram tiktok youtube shorts content social media short form marketing automation clips post caption editing captions creator studio ai video listing property tour walkthrough',
+    'Presentation Studio':'deck slides powerpoint keynote pitch investor presentation studio generate proposal report brochure pdf template designer',
+    'Property Intelligence':'market intelligence data dld analytics research query ask rental service charge insight benchmark comparable comps valuation price per sqft trends stats report analysis',
+    'Lead Concierge':'chatbot chat lead client whatsapp enquiry inquiry qualify qualifying viewing appointment booking multilingual arabic concierge 24 7 assistant crm follow up nurture responder receptionist',
+    'Market Pulse':'briefing news weekly report transactions launches prices pulse market digest trend newsletter update summary sales volume',
+    'Document Vault AI':'contract mou noc spa document ocr search redact classify paperwork agreement tenancy ejari file extract summarise summarize',
+    'Property Status Enquiry':'title deed ownership property status oqood check enquiry inquiry mortgage lien verify property',
+    'Track Project Status':'off plan offplan project escrow construction status developer progress track completion percentage handover',
+    'Verify Licenses & Permits':'rera permit advertisement advertising trakheesi verify licence license broker validate ad number qr',
+    'Makani':'location address building number map geo location navigation makani find directions coordinates plot',
+    'goAML Registration':'money laundering aml anti money laundering fiu compliance report goaml register uaefiu kyc suspicious transaction str',
+    'DLD Support':'contact help support complaint land department call dld customer service phone email',
+    'Licensed Real Estate Brokers':'broker agent licence license lookup rera find broker list verify agent card brn',
+    'Licensed Brokerage Companies':'brokerage office company firm licence license agency list real estate company orn',
+    'Approved Real Estate Developers':'developer registry approved builder list dld master developer',
+    'Rental Index':'rent rental fair rent calculator index tenancy renewal increase cap rera raise how much rent',
+    'Service Charge Index':'service charge maintenance fee community master developer sqft annual charges',
+    'Management Companies':'owners association oa management community building manage jointly owned property',
+    'Police Clearance Certificate':'pcc good conduct police certificate clearance criminal record background check',
+    'Golden Visa Application':'golden visa residency 10 year long term investor property visa dldcube permanent residence 2 million',
+    'ILOE — Subscribe / Renew':'insurance job loss unemployment iloe subscribe renew involuntary loss employment policy enroll',
+    'ILOE — Check & Pay Fines':'iloe fine pay mohre penalty unemployment insurance overdue',
+    'ILOE — Submit a Claim':'iloe claim unemployment benefit compensation submit lost job',
+    'GDRFA — Overstay Fines Inquiry':'overstay fine residency visa gdrfa penalty inquiry expired visa amer',
+    'ICP — File Validity':'file validity entry permit residency status icp check visa valid expiry',
+    'ICP — Pay Overstay Fine':'overstay fine pay icp penalty settle expired visa',
+    'ICP — Update Emirates ID Details':'emirates id eid update mobile number phone personal details icp change address',
+    'ICP — Visa Extension':'visa extension on arrival tourist extend icp renew tourist visa',
+    'ICP — Emirates ID Card Status':'emirates id eid status card track production icp delivery collect',
+    'DHA — Medical Fitness Status':'medical fitness test health visa dha screening result blood test typing centre',
+    'MOFA — Attestation':'attestation attest document mofa certificate embassy legalise legalize degree marriage birth',
+    'Dubai Police — Services':'travel ban police report services dubai police fines check criminal case status'
   };
   let INDEX=null, vaultItems=[], matches=[], active=0, open=false;
   const escHtml=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -820,8 +887,8 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
       cx+=(mx-cx)*.12; cy+=(my-cy)*.12; tm+=.011;
       for(let i=0;i<dots.length;i++){
         const d=dots[i], dx=d.x-cx, dy=d.y-cy, dist=Math.sqrt(dx*dx+dy*dy);
-        let rad=0.85, a=0.08, px=d.x, py=d.y;
-        if(dist<R){ const f=1-dist/R, e=f*f; rad=0.85+e*3.0; a=0.08+e*0.60;
+        let rad=1.0, a=0.13, px=d.x, py=d.y;
+        if(dist<R){ const f=1-dist/R, e=f*f; rad=1.0+e*3.2; a=0.13+e*0.55;
           const u=dist||1; px=d.x+(dx/u)*e*8; py=d.y+(dy/u)*e*8; }
         if(!reduced){ a*=0.8+0.2*Math.sin(tm+d.x*0.011+d.y*0.009); }
         ctx.globalAlpha=a<0?0:(a>0.7?0.7:a);
