@@ -1,0 +1,7 @@
+{
+  "presentationsVaultUrl": "",
+  "presentationsVaultLabel": "Sykon Properties — Presentations Vault (Zoho WorkDrive)",
+  "timezone": "Asia/Dubai",
+  "syncSchedule": "Every Monday 11:00 GST (07:00 UTC)",
+  "notes": "Set presentationsVaultUrl to the Zoho WorkDrive share link of the presentations folder. The Monday sync routine reads this file; the site's 'Open the Full Vault' button uses the same URL."
+}
