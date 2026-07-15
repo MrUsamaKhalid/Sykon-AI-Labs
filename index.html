@@ -266,6 +266,13 @@ footer{margin-top:clamp(90px,11vw,160px);border-top:1px solid var(--ink);positio
   .rv{opacity:1;transform:none}
 }
 
+/* ══ OFFICIAL LOGO ══ */
+.nav-logo{height:17px;width:auto;display:block}
+.nav-tag{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--i50);border-left:1px solid var(--i15);padding-left:11px;margin-left:1px}
+@media(max-width:560px){.nav-tag{display:none}}
+.logo-svg{width:min(540px,84vw);height:auto;display:block;margin:0 auto}
+
 /* ══ UNIVERSAL SEARCH ══ */
 .nav-search{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10px;
   letter-spacing:.2em;text-transform:uppercase;padding:9px 12px;border:1px solid var(--i30);
@@ -342,9 +349,9 @@ body.pal-open{overflow:hidden}
 
 <nav>
   <div class="nav-in">
-    <a class="brand" href="#top" data-hover>
-      <span class="monogram">S</span>
-      <span class="brand-name">SYKON<b>·AI·LABS</b></span>
+    <a class="brand" href="#top" data-hover aria-label="Sykon AI Labs — home">
+      <img class="nav-logo" src="assets/sykon-logo.svg" alt="Sykon Properties" width="63" height="17">
+      <span class="nav-tag">AI Labs</span>
     </a>
     <div class="nav-links">
       <a href="#solutions" data-hover data-scramble>Systems</a>
@@ -377,8 +384,7 @@ body.pal-open{overflow:hidden}
   <canvas id="stage"></canvas>
   <div class="hero-in">
     <div class="wordmark">
-      <span class="wm-sykon">SYKON</span>
-      <span class="wm-props">PROPERTIES</span>
+      <img class="logo-svg" src="assets/sykon-logo.svg" alt="SYKON PROPERTIES" width="540" height="145">
     </div>
     <div><span class="hero-tag"><span class="blink"></span>PRIVATE INTELLIGENCE SUITE — EST. 2026</span></div>
     <div class="hero-ai" id="heroAI">AI LABS</div>
@@ -791,63 +797,41 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   window.SykonSearch={ setVault(v){ vaultItems=Array.isArray(v)?v:[]; INDEX=null; if(open)render(input.value); }, open:openPal };
 })();
 
-/* ───────── 3D hero stage: wireframe icosahedron + particle lattice ───────── */
+/* ───────── hero field: cursor-reactive dot matrix (grid-aligned, minimal) ───────── */
 (function stage(){
-  const cv=document.getElementById('stage'), ctx=cv.getContext('2d');
-  let W,H,DPR; const P=[]; const N=innerWidth<720?36:70;
-  let mouseX=0, mouseY=0, tx=0, ty=0;
-  function size(){DPR=Math.min(devicePixelRatio||1,2);
-    W=cv.clientWidth=cv.parentElement.clientWidth; H=cv.clientHeight=cv.parentElement.clientHeight;
-    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);}
+  const cv=document.getElementById('stage'), ctx=cv.getContext('2d'), host=cv.parentElement;
+  let W,H,DPR,dots=[],vis=true; const GAP=28, R=155;
+  let mx=-1e4,my=-1e4,cx=mx,cy=my,tm=0;
+  function size(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    W=cv.clientWidth=host.clientWidth; H=cv.clientHeight=host.clientHeight;
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    dots=[]; const cols=Math.ceil(W/GAP)+2, rows=Math.ceil(H/GAP)+2;
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)dots.push({x:c*GAP,y:r*GAP});
+  }
   size(); addEventListener('resize',size);
-  for(let i=0;i<N;i++)P.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0006,vy:(Math.random()-.5)*.0006});
-  addEventListener('mousemove',e=>{mouseX=(e.clientX/innerWidth-.5);mouseY=(e.clientY/innerHeight-.5);});
-  /* icosahedron geometry */
-  const t=(1+Math.sqrt(5))/2;
-  const V=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]]
-    .map(v=>{const m=Math.hypot(...v);return v.map(c=>c/m);});
-  const E=[];
-  for(let i=0;i<V.length;i++)for(let j=i+1;j<V.length;j++){
-    const d=Math.hypot(V[i][0]-V[j][0],V[i][1]-V[j][1],V[i][2]-V[j][2]);
-    if(d<1.2)E.push([i,j]);
+  if(host.getBoundingClientRect) try{ new IntersectionObserver(es=>{vis=es[0].isIntersecting;}).observe(host); }catch(e){}
+  addEventListener('mousemove',e=>{ const b=host.getBoundingClientRect(); mx=e.clientX-b.left; my=e.clientY-b.top; });
+  document.addEventListener('mouseleave',()=>{ mx=my=-1e4; });
+  ctx.fillStyle='#111111';
+  function draw(){
+    if(vis){
+      ctx.clearRect(0,0,W,H);
+      cx+=(mx-cx)*.12; cy+=(my-cy)*.12; tm+=.011;
+      for(let i=0;i<dots.length;i++){
+        const d=dots[i], dx=d.x-cx, dy=d.y-cy, dist=Math.sqrt(dx*dx+dy*dy);
+        let rad=0.85, a=0.08, px=d.x, py=d.y;
+        if(dist<R){ const f=1-dist/R, e=f*f; rad=0.85+e*3.0; a=0.08+e*0.60;
+          const u=dist||1; px=d.x+(dx/u)*e*8; py=d.y+(dy/u)*e*8; }
+        if(!reduced){ a*=0.8+0.2*Math.sin(tm+d.x*0.011+d.y*0.009); }
+        ctx.globalAlpha=a<0?0:(a>0.7?0.7:a);
+        ctx.beginPath(); ctx.arc(px,py,rad,0,6.2832); ctx.fill();
+      }
+      ctx.globalAlpha=1;
+    }
+    if(!reduced) requestAnimationFrame(draw);
   }
-  let a=0,b=0;
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    tx+=(mouseX-tx)*.04; ty+=(mouseY-ty)*.04;
-    /* particles */
-    ctx.fillStyle='rgba(17,17,17,.5)';
-    for(const p of P){
-      p.x+=p.vx+tx*.0004; p.y+=p.vy+ty*.0004;
-      if(p.x<0)p.x=1; if(p.x>1)p.x=0; if(p.y<0)p.y=1; if(p.y>1)p.y=0;
-      ctx.fillRect(p.x*W-1,p.y*H-1,2,2);
-    }
-    ctx.strokeStyle='rgba(17,17,17,.10)'; ctx.lineWidth=1;
-    for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){
-      const dx=(P[i].x-P[j].x)*W, dy=(P[i].y-P[j].y)*H, d=dx*dx+dy*dy;
-      if(d<130*130){ctx.beginPath();ctx.moveTo(P[i].x*W,P[i].y*H);ctx.lineTo(P[j].x*W,P[j].y*H);ctx.stroke();}
-    }
-    /* icosahedron */
-    if(!reduced){a+=.0035+tx*.01; b+=.0022+ty*.01;}
-    const cx=W/2, cy=H*.46, R=Math.min(W,H)*.34;
-    const ca=Math.cos(a),sa=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b);
-    const proj=V.map(v=>{
-      let[x,y,z]=v;
-      let x1=x*ca - z*sa, z1=x*sa + z*ca;
-      let y1=y*cb - z1*sb, z2=y*sb + z1*cb;
-      const s=1/(1.9-z2*.6);
-      return [cx+x1*R*s + tx*40, cy+y1*R*s + ty*40, z2];
-    });
-    for(const [i,j] of E){
-      const zAvg=(proj[i][2]+proj[j][2])/2;
-      ctx.strokeStyle=`rgba(17,17,17,${.06+(zAvg+1)*.10})`;
-      ctx.beginPath();ctx.moveTo(proj[i][0],proj[i][1]);ctx.lineTo(proj[j][0],proj[j][1]);ctx.stroke();
-    }
-    ctx.fillStyle='rgba(17,17,17,.65)';
-    for(const p of proj)ctx.fillRect(p[0]-1.5,p[1]-1.5,3,3);
-    requestAnimationFrame(frame);
-  }
-  if(!reduced) frame(); else { /* static single render */ frame; }
+  draw();
 })();
 </script>
 </body>
