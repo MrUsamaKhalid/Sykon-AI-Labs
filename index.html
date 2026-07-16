@@ -405,6 +405,18 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
 /* ═══ legibility, larger nav logo, stronger secondary text ═══ */
 .nav-logo{height:19px}
 .card p,.deck .d,.link-row .ld{color:var(--i70)}
+
+/* === vault passcode gate === */
+.vault-gate{margin-top:56px;border:1px solid var(--ink);border-radius:var(--r-lg);padding:clamp(40px,6vw,64px) 30px;text-align:center;position:relative;overflow:hidden}
+.vault-gate::before{content:"RESTRICTED ACCESS";position:absolute;top:14px;left:16px;font-family:var(--mono);font-size:8px;letter-spacing:.3em;color:var(--i30)}
+.vault-gate .vg-ico{font-size:24px;line-height:1}
+.vault-gate .vg-title{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(22px,3vw,30px);margin-top:12px;letter-spacing:-.01em}
+.vault-gate .vg-sub{color:var(--i50);font-size:13.5px;line-height:1.6;margin:12px auto 22px;max-width:460px}
+.vg-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:stretch}
+.vg-input{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:15px 20px;border:1px solid var(--i30);border-radius:var(--r);background:var(--paper);color:var(--ink);min-width:230px}
+.vg-input:focus{outline:0;border-color:var(--ink);box-shadow:5px 5px 0 0 var(--i08)}
+.vg-form .btn{border-radius:var(--r)}
+.vg-err{color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:16px;min-height:12px}
 </style>
 </head>
 <body>
@@ -505,7 +517,19 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
       </div>
       <div class="vault-meta">Auto-refresh cycle<b>MON · 11:00 GST</b></div>
     </div>
-    <div id="deck-area"></div>
+    <div id="vault-gate" class="vault-gate">
+  <div class="vg-inner">
+    <div class="vg-ico">▨</div>
+    <div class="vg-title">The vault is sealed</div>
+    <p class="vg-sub">Enter the desk passcode to view the presentation index. The documents stay access-controlled in the Sykon drive.</p>
+    <form id="vgForm" class="vg-form" autocomplete="off">
+      <input id="vgInput" type="password" class="vg-input" placeholder="Desk passcode" aria-label="Desk passcode">
+      <button type="submit" class="btn solid" data-hover data-magnet><span>Unlock</span></button>
+    </form>
+    <div id="vgErr" class="vg-err" role="alert"></div>
+  </div>
+</div>
+<div id="deck-area" style="display:none"></div>
     <div class="vault-cta rv">
       <a class="btn solid" id="vault-link" href="#" target="_blank" rel="noopener" data-hover data-magnet><span>Open the Full Vault</span></a>
     </div>
@@ -902,6 +926,20 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     if(!reduced) requestAnimationFrame(draw);
   }
   draw();
+})();
+
+/* vault passcode gate */
+(function vaultGate(){
+  var CODE="sykon2026"; /* desk passcode, change this value */
+  var gate=document.getElementById("vault-gate"), area=document.getElementById("deck-area"),
+      form=document.getElementById("vgForm"), input=document.getElementById("vgInput"), err=document.getElementById("vgErr");
+  if(!gate||!area) return;
+  function unlock(){ gate.style.display="none"; area.style.display=""; try{sessionStorage.setItem("sykonVault","1");}catch(e){} }
+  try{ if(sessionStorage.getItem("sykonVault")==="1") unlock(); }catch(e){}
+  if(form) form.addEventListener("submit",function(e){ e.preventDefault();
+    if((input.value||"").trim().toLowerCase()===CODE){ err.textContent=""; unlock(); }
+    else { err.textContent="Incorrect passcode"; input.value=""; input.focus(); }
+  });
 })();
 </script>
 </body>
