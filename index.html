@@ -417,6 +417,31 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
 .vg-input:focus{outline:0;border-color:var(--ink);box-shadow:5px 5px 0 0 var(--i08)}
 .vg-form .btn{border-radius:var(--r)}
 .vg-err{color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:16px;min-height:12px}
+
+/* ══ AGENTS · THE DESK ══ */
+.ag-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.ag-filter{display:flex;align-items:center;gap:10px;border:1px solid var(--i30);border-radius:var(--r-lg);padding:13px 18px;min-width:min(300px,82vw);cursor:text;transition:box-shadow .3s,border-color .2s}
+.ag-filter:focus-within{border-color:var(--ink);box-shadow:6px 6px 0 0 var(--i08)}
+.ag-filter .agf-ico{font-size:16px;color:var(--i50)}
+.ag-filter input{flex:1;min-width:0;border:0;outline:0;background:none;font-family:var(--sf);font-size:14px;color:var(--ink)}
+.ag-filter input::placeholder{color:var(--i30)}
+.ag-filter .agf-count{font-family:var(--sf);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--i50);white-space:nowrap}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:16px;margin-top:44px}
+.agent{border:1px solid var(--i15);border-radius:var(--r-lg);overflow:hidden;background:var(--paper);display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s}
+.agent:hover{box-shadow:12px 12px 0 0 var(--i08);transform:translateY(-3px);z-index:2}
+.agent.hide{display:none}
+.ag-photo{position:relative;aspect-ratio:1/1;background:var(--ink);overflow:hidden}
+.ag-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03);transition:transform .5s}
+.agent:hover .ag-photo img{transform:scale(1.04)}
+.ag-ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:46px;color:var(--paper);letter-spacing:.02em;user-select:none}
+.ag-body{padding:16px 16px 4px}
+.ag-name{font-weight:700;font-size:16px;letter-spacing:-.01em;line-height:1.2}
+.ag-role{font-size:12px;color:var(--i50);margin-top:3px}
+.ag-actions{display:flex;gap:8px;padding:12px 16px 16px;margin-top:auto}
+.ag-btn{flex:1;font-family:var(--sf);font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--i30);border-radius:var(--r-sm);padding:9px 6px;cursor:pointer;transition:all .2s;color:var(--i70);background:var(--paper)}
+.ag-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ag-empty{padding:50px 20px;text-align:center;font-family:var(--sf);font-size:13px;letter-spacing:.03em;color:var(--i50);grid-column:1/-1}
+@media(max-width:520px){.agents-grid{grid-template-columns:1fr 1fr;gap:12px}.ag-actions{flex-direction:column}.ag-name{font-size:15px}}
 </style>
 </head>
 <body>
@@ -437,6 +462,7 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
     </a>
     <div class="nav-links">
       <a href="#solutions" data-hover data-scramble>Systems</a>
+      <a href="#agents" data-hover data-scramble>Agents</a>
       <a href="#vault" data-hover data-scramble>Vault</a>
       <a href="#directory" data-hover data-scramble>Directory</a>
       <button type="button" class="nav-search" id="navSearch" data-hover aria-label="Open universal search"><span class="ns-ico">⌕</span><span>Search</span><span class="ns-k">⌘K</span></button>
@@ -506,12 +532,31 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
   </div>
 </section>
 
-<!-- ═══ SYS.02 · VAULT ═══ -->
+<!-- ═══ SYS.02 · AGENTS ═══ -->
+<section id="agents" class="sec">
+  <div class="wrap">
+    <div class="ag-head rv">
+      <div>
+        <div class="sys">SYS.02 <span class="dim">/ THE DESK</span></div>
+        <h2 class="h-giant">The <span class="ol">agents</span></h2>
+        <p class="lede">The Sykon desk, searchable by name or specialism. Download a branded card or a headshot for any consultant.</p>
+      </div>
+      <label class="ag-filter" data-hover>
+        <span class="agf-ico">⌕</span>
+        <input id="agents-filter" type="text" placeholder="Filter the desk" aria-label="Filter agents" autocomplete="off">
+        <span class="agf-count" id="agents-count"></span>
+      </label>
+    </div>
+    <div class="agents-grid rv" id="agents-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ SYS.03 · VAULT ═══ -->
 <section id="vault" class="sec">
   <div class="wrap">
     <div class="vault-head rv">
       <div>
-        <div class="sys">SYS.02 <span class="dim">/ THE VAULT</span></div>
+        <div class="sys">SYS.03 <span class="dim">/ THE VAULT</span></div>
         <h2 class="h-giant">Decks &amp; <span class="ol">papers</span></h2>
         <p class="lede">The latest presentations from the Sykon library. Titles and summaries are listed here; the documents themselves remain access-controlled.</p>
       </div>
@@ -536,10 +581,10 @@ body{font-family:var(--sf);font-size:16px;line-height:1.62;letter-spacing:-.006e
   </div>
 </section>
 
-<!-- ═══ SYS.03 · DIRECTORY ═══ -->
+<!-- ═══ SYS.04 · DIRECTORY ═══ -->
 <section id="directory" class="sec">
   <div class="wrap">
-    <div class="sys rv">SYS.03 <span class="dim">/ THE DIRECTORY</span></div>
+    <div class="sys rv">SYS.04 <span class="dim">/ THE DIRECTORY</span></div>
     <h2 class="h-giant rv">Essential <span class="ol">references</span></h2>
     <p class="lede rv">The official portals the desk reaches for daily, Dubai real-estate services and UAE government essentials, verified and in one place.</p>
     <div id="directory-groups"></div>
@@ -806,7 +851,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     'MOFA, Attestation':'attestation attest document mofa certificate embassy legalise legalize degree marriage birth',
     'Dubai Police, Services':'travel ban police report services dubai police fines check criminal case status'
   };
-  let INDEX=null, vaultItems=[], matches=[], active=0, open=false;
+  let INDEX=null, vaultItems=[], agentItems=[], matches=[], active=0, open=false;
   const escHtml=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const escRx=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   function build(){
@@ -817,6 +862,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     (typeof SOLUTIONS!=='undefined'?SOLUTIONS:[]).forEach(s=>idx.push({type:'System · '+s.tag,title:s.title,desc:s.desc,href:s.link||'#solutions',external:false,kw:(ALIASES[s.title]||'')+' '+s.tag+' '+s.status}));
     (typeof DIRECTORY!=='undefined'?DIRECTORY:[]).forEach(g=>g.links.forEach(l=>idx.push({type:g.group,title:l.t,desc:l.d,href:l.u,external:true,kw:(ALIASES[l.t]||'')+' '+g.group})));
     vaultItems.forEach(p=>idx.push({type:'Vault · Deck',title:p.title,desc:p.description||'',href:p.link||'#vault',external:!!p.link,kw:'presentation deck slides '+(p.date||'')}));
+    agentItems.forEach(a=>idx.push({type:'Agent · '+a.role,title:a.name,desc:a.role,href:'#agents',external:false,kw:(a.keywords||'')+' agent team desk'}));
     idx.forEach(it=>it._hay=(it.title+' '+it.desc+' '+it.type+' '+(it.kw||'')).toLowerCase());
     INDEX=idx;
   }
@@ -888,7 +934,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   const PHRASES=["What are you looking for?","What do you wish for?","Find a system, a deck, a service…","Try “rental index” or “golden visa”…","Search 27 references + 6 systems…"];
   let pi=0; const heroPh=document.getElementById('heroPh');
   if(!reduced) setInterval(()=>{ pi=(pi+1)%PHRASES.length; if(heroPh)heroPh.textContent=PHRASES[pi]; if(!input.value)input.placeholder=PHRASES[pi]; },3400);
-  window.SykonSearch={ setVault(v){ vaultItems=Array.isArray(v)?v:[]; INDEX=null; if(open)render(input.value); }, open:openPal };
+  window.SykonSearch={ setVault(v){ vaultItems=Array.isArray(v)?v:[]; INDEX=null; if(open)render(input.value); }, setAgents(v){ agentItems=Array.isArray(v)?v:[]; INDEX=null; if(open)render(input.value); }, open:openPal };
 })();
 
 /* ───────── hero field: cursor-reactive dot matrix (grid-aligned, minimal) ───────── */
@@ -926,6 +972,63 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     if(!reduced) requestAnimationFrame(draw);
   }
   draw();
+})();
+
+/* ───────── agents hub · the desk ───────── */
+(function agentsHub(){
+  var grid=document.getElementById('agents-grid'); if(!grid) return;
+  var filterEl=document.getElementById('agents-filter'), countEl=document.getElementById('agents-count');
+  var FF="-apple-system,'SF Pro Display','Inter',system-ui,sans-serif";
+  var AGENTS=[];
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function initials(n){return n.split(/\s+/).filter(Boolean).slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();}
+  function bySlug(s){ for(var i=0;i<AGENTS.length;i++){ if(AGENTS[i].slug===s) return AGENTS[i]; } return null; }
+  function cardHTML(a){
+    var img=a.img?'<img src="'+esc(a.img)+'" alt="'+esc(a.name)+'" loading="lazy" onerror="this.remove()">':'';
+    return '<article class="agent" data-slug="'+esc(a.slug)+'" data-find="'+esc((a.name+' '+a.role+' '+(a.keywords||'')).toLowerCase())+'" data-hover>'
+      +'<div class="ag-photo"><span class="ag-ini">'+esc(initials(a.name))+'</span>'+img+'</div>'
+      +'<div class="ag-body"><div class="ag-name">'+esc(a.name)+'</div><div class="ag-role">'+esc(a.role)+'</div></div>'
+      +'<div class="ag-actions"><button type="button" class="ag-btn" data-act="card" data-hover>Download card</button>'
+      +'<button type="button" class="ag-btn" data-act="photo" data-hover>Download photo</button></div></article>';
+  }
+  function applyFilter(){
+    var q=((filterEl&&filterEl.value)||'').trim().toLowerCase(), shown=0, cards=grid.querySelectorAll('.agent');
+    for(var i=0;i<cards.length;i++){ var hit=!q||cards[i].getAttribute('data-find').indexOf(q)!==-1; cards[i].classList.toggle('hide',!hit); if(hit)shown++; }
+    if(countEl) countEl.textContent=shown+' / '+AGENTS.length;
+  }
+  function loadImg(src){ return new Promise(function(res,rej){ var im=new Image(); im.crossOrigin='anonymous'; im.onload=function(){res(im);}; im.onerror=rej; im.src=src; }); }
+  function dl(blob,name){ var u=URL.createObjectURL(blob),l=document.createElement('a'); l.href=u; l.download=name; document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){URL.revokeObjectURL(u);},2000); }
+  function fitFont(x,text,max,base){ var s=base; x.font='800 '+s+'px '+FF; while(s>26 && x.measureText(text).width>max){ s-=3; x.font='800 '+s+'px '+FF; } return s; }
+  async function makeCard(a){
+    var W=1080,H=1350,c=document.createElement('canvas'); c.width=W; c.height=H; var x=c.getContext('2d');
+    x.fillStyle='#fefefe'; x.fillRect(0,0,W,H);
+    x.strokeStyle='#111111'; x.lineWidth=2; x.strokeRect(42,42,W-84,H-84);
+    try{ var logo=await loadImg('assets/sykon-logo.svg'); var lw=356,lh=lw*(logo.height/logo.width); x.drawImage(logo,(W-lw)/2,124,lw,lh); }catch(e){}
+    var pw=560,pxp=(W-pw)/2,py=336,drawn=false;
+    if(a.img){ try{ var ph=await loadImg(a.img); x.save(); if(x.roundRect){x.beginPath();x.roundRect(pxp,py,pw,pw,30);x.clip();} x.filter='grayscale(1) contrast(1.03)'; var sc=Math.max(pw/ph.width,pw/ph.height),dw=ph.width*sc,dh=ph.height*sc; x.drawImage(ph,pxp+(pw-dw)/2,py+(pw-dh)/2,dw,dh); x.filter='none'; x.restore(); drawn=true; }catch(e){} }
+    if(!drawn){ x.save(); x.fillStyle='#111111'; if(x.roundRect){x.beginPath();x.roundRect(pxp,py,pw,pw,30);x.fill();}else x.fillRect(pxp,py,pw,pw); x.fillStyle='#fefefe'; x.textAlign='center'; x.textBaseline='middle'; x.font='800 210px '+FF; x.fillText(initials(a.name),W/2,py+pw/2+6); x.restore(); }
+    x.textAlign='center'; x.textBaseline='alphabetic';
+    x.fillStyle='#111111'; var ns=fitFont(x,a.name,W-220,62); x.font='800 '+ns+'px '+FF; x.fillText(a.name,W/2,py+pw+120);
+    x.fillStyle='rgba(17,17,17,.6)'; x.font='500 30px '+FF; x.fillText(a.role,W/2,py+pw+172);
+    x.fillStyle='#111111'; x.fillRect(W/2-42,H-176,84,2);
+    x.fillStyle='rgba(17,17,17,.55)'; x.font='600 22px '+FF; x.fillText('SYKON PROPERTIES · AI LABS',W/2,H-122);
+    await new Promise(function(res){ c.toBlob(function(b){ if(b) dl(b,a.slug+'-sykon-card.png'); res(); },'image/png'); });
+  }
+  async function getPhoto(a){ if(!a.img) return; try{ var r=await fetch(a.img); if(!r.ok) return; dl(await r.blob(),a.slug+'.jpg'); }catch(e){} }
+  grid.addEventListener('click',function(e){
+    var btn=e.target.closest('.ag-btn'); if(!btn) return;
+    var art=e.target.closest('.agent'); if(!art) return; var a=bySlug(art.getAttribute('data-slug')); if(!a) return;
+    var act=btn.getAttribute('data-act');
+    if(act==='card'){ btn.disabled=true; var t=btn.textContent; btn.textContent='Rendering…'; makeCard(a).then(function(){btn.textContent=t;btn.disabled=false;}).catch(function(){btn.textContent=t;btn.disabled=false;}); }
+    else if(act==='photo'){ if(!a.img){ var p=btn.textContent; btn.textContent='No photo yet'; setTimeout(function(){btn.textContent=p;},1500); } else getPhoto(a); }
+  });
+  if(filterEl) filterEl.addEventListener('input',applyFilter);
+  fetch('data/agents.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    AGENTS=(d&&Array.isArray(d.items))?d.items:[];
+    grid.innerHTML=AGENTS.length?AGENTS.map(cardHTML).join(''):'<div class="ag-empty">The desk roster is being connected.</div>';
+    applyFilter();
+    try{ if(window.SykonSearch) window.SykonSearch.setAgents(AGENTS); }catch(e){}
+  }).catch(function(){ grid.innerHTML='<div class="ag-empty">The desk roster could not be loaded.</div>'; });
 })();
 
 /* vault passcode gate */
